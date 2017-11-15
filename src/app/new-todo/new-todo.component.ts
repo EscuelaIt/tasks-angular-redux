@@ -27,6 +27,7 @@ export class NewTodoComponent implements OnInit {
 
   saveTodo() {
     const action = new TodoAddAction({
+      id: Math.random().toString(),
       title: this.textField.value,
       completed: false,
       date: new Date()
