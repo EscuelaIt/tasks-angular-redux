@@ -1,4 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+
+import { AppState } from './../../redux/app.state';
+
+import { TodoAddAction } from './../../redux/todo/todo.actions';
 
 @Component({
   selector: 'app-new-todo',
@@ -8,9 +14,25 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class NewTodoComponent implements OnInit {
 
-  constructor() { }
+  textField: FormControl;
+
+  constructor(
+    private store: Store<AppState>
+  ) {
+    this.textField = new FormControl('', [Validators.required]);
+  }
 
   ngOnInit() {
+  }
+
+  saveTodo() {
+    const action = new TodoAddAction({
+      title: this.textField.value,
+      completed: false,
+      date: new Date()
+    });
+    this.store.dispatch(action);
+    this.textField.setValue('');
   }
 
 }

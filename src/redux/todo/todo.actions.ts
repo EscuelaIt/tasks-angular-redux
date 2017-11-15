@@ -8,7 +8,7 @@ export class TodoAddAction implements Action {
   readonly type = TODO_ADD;
 
   constructor(
-    public payload: Todo
+    public newTodo: Todo
   ) {}
 }
 
